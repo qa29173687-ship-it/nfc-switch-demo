@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#8ec5e8">
+  <meta name="description" content="NFC 付款切換介面示範：桌面小工具與快捷開關可打開系統「預設感應付款」頁，選 OPPO 錢包或 Google 錢包。不會真的改手機設定。">
+  <title>NFC 付款切換 DEMO</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="desk-only intro">
+      <p class="eyebrow">NFC 付款切換 · 介面示範</p>
+      <h1>一鍵打開系統設定，選錢包或 Google 錢包</h1>
+      <p>這是可點的示範頁，不是已安裝的 App，也不會真的改手機設定。實際切換要在系統「預設感應付款」頁完成。用手機打開最準。</p>
+    </header>
+
+    <div class="bezel">
+      <div class="phone" id="app">
+
+        <div class="status is-light" id="status" data-open-qs>
+          <span class="st-time" data-clock="hm">17:18</span>
+          <span class="st-right">
+            <span class="sig" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <svg class="ico-wifi" viewBox="0 0 22 16" aria-hidden="true"><path d="M1.5 6.2C5.6 2.6 10.8 1.2 16.2 3.2M4.2 9C7.1 6.5 10.7 5.6 14.4 7M7.2 11.8c1.7-1.5 3.8-2 5.9-1.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="11" cy="14.2" r="1.3" fill="currentColor"/></svg>
+            <span class="bat" aria-hidden="true"><b></b></span>
+          </span>
+        </div>
+
+        <!-- HOME -->
+        <section class="screen screen-home is-on" id="screen-home" aria-label="桌面">
+          <div class="wallpaper" aria-hidden="true"></div>
+          <div class="home-body">
+            <div class="clock-block">
+              <div class="big-time" data-clock="hm">17:18</div>
+              <div class="date-line" data-clock="date">11月22日 星期日</div>
+            </div>
+
+            <div class="demo-banner home-banner" role="note">DEMO示意，實際切換在系統設定頁完成</div>
+
+            <div class="widget" id="widget">
+              <div class="widget-top">
+                <div class="widget-title">
+                  <span class="w-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 9.2c2.4-2.3 5.2-3.4 9.2-2.6M6 13.2c2-1.8 4.3-2.6 7.4-2.1M6 17c1.5-1.3 3.2-1.9 5.4-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </span>
+                  NFC 付款切換
+                </div>
+                <div class="last-choice">
+                  <span class="lc-label">上次選擇<span class="hint-tag">示意</span></span>
+                  <strong class="lc-value" data-last-label>尚未選擇</strong>
+                </div>
+              </div>
+              <div class="widget-btns">
+                <button type="button" class="w-btn door" data-open-pay="wallet">
+                  <span class="w-ico" aria-hidden="true">
+                    <svg viewBox="0 0 32 32"><path d="M10 14.5V11.2A6 6 0 0 1 22 11v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="6.5" y="14" width="19" height="13.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 18.2v4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="18.2" r="1.1" fill="currentColor"/></svg>
+                  </span>
+                  <span class="w-name">刷門禁</span>
+                  <span class="w-sub">OPPO 錢包</span>
+                </button>
+                <button type="button" class="w-btn pay" data-open-pay="google">
+                  <span class="w-ico" aria-hidden="true">
+                    <svg viewBox="0 0 32 32"><rect x="5.5" y="9" width="21" height="15.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 13.2h21" stroke="currentColor" stroke-width="1.8"/><rect x="18.2" y="16.6" width="5.6" height="3.4" rx="1" fill="currentColor"/></svg>
+                  </span>
+                  <span class="w-name">付款</span>
+                  <span class="w-sub">Google 錢包</span>
+                </button>
+              </div>
+              <p class="widget-hint">點一下會打開系統「預設感應付款」頁，再選要用的應用程式。</p>
+            </div>
+
+            <div class="app-row">
+              <button type="button" class="app-icon" id="btn-open-app" data-open-app>
+                <span class="ai-badge ai-main" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M7 12.2c3.2-3 6.8-4.3 12.2-3.2M7 16.6c2.6-2.3 5.5-3.3 9.6-2.6M7 20.8c1.8-1.6 3.9-2.3 6.8-2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M20.2 18.2l4.3 4.3M24.5 18.2L20.2 22.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ai-name">NFC 付款切換</span>
+              </button>
+              <button type="button" class="app-icon" data-deco="錢包">
+                <span class="ai-badge ai-wallet" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><rect x="6" y="10" width="20" height="14.5" rx="3" fill="none" stroke="#fff" stroke-width="2"/><path d="M6 14.2h20" stroke="#fff" stroke-width="2"/><rect x="18" y="17.2" width="5.2" height="3.2" rx=".9" fill="#fff"/></svg>
+                </span>
+                <span class="ai-name">錢包</span>
+              </button>
+              <button type="button" class="app-icon" data-deco="設定">
+                <span class="ai-badge ai-set" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M13.1 6.6l.6-2.2h4.6l.6 2.2 2.2.9 1.9-1.4 3.3 3.3-1.4 1.9.9 2.2 2.2.6v4.6l-2.2.6-.9 2.2 1.4 1.9-3.3 3.3-1.9-1.4-2.2.9-.6 2.2h-4.6l-.6-2.2-2.2-.9-1.9 1.4-3.3-3.3 1.4-1.9-.9-2.2L5.2 18v-4.6l2.2-.6.9-2.2-1.4-1.9 3.3-3.3 1.9 1.4 2.2-.9z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="16" cy="16" r="3.2" fill="none" stroke="#fff" stroke-width="1.8"/></svg>
+                </span>
+                <span class="ai-name">設定</span>
+              </button>
+              <button type="button" class="app-icon" data-deco="相機">
+                <span class="ai-badge ai-cam" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><rect x="5.5" y="10.5" width="21" height="14.5" rx="3.2" fill="none" stroke="#fff" stroke-width="2"/><circle cx="16" cy="17.6" r="4" fill="none" stroke="#fff" stroke-width="2"/><path d="M12 10.5l1.2-2.4h5.6L20 10.5" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="ai-name">相機</span>
+              </button>
+            </div>
+          </div>
+
+          <nav class="dock" aria-label="常用應用程式">
+            <button type="button" class="dock-ico" data-deco="電話" aria-label="電話">
+              <span class="di di-phone"><svg viewBox="0 0 24 24"><path d="M7.2 3.8l2.3 2.3a1.2 1.2 0 0 1 0 1.7L8.2 9.1c.8 1.8 2.6 3.6 4.5 4.6l1.4-1.3a1.2 1.2 0 0 1 1.7 0l2.4 2.3c.5.5.5 1.2 0 1.7l-1.3 1.3c-.8.8-2 .9-3.1.5C10.4 16.8 7 13.3 5.3 9.6c-.5-1.1-.3-2.3.5-3.1L5.6 5.2c.4-.5 1.1-.5 1.6-.4z" fill="#fff"/></svg></span>
+            </button>
+            <button type="button" class="dock-ico" data-deco="訊息" aria-label="訊息">
+              <span class="di di-msg"><svg viewBox="0 0 24 24"><path d="M5 6.2A2.2 2.2 0 0 1 7.2 4h9.6A2.2 2.2 0 0 1 19 6.2v7.2A2.2 2.2 0 0 1 16.8 15.6H9.4L5 19.2V6.2z" fill="#fff"/></svg></span>
+            </button>
+            <button type="button" class="dock-ico" data-deco="瀏覽器" aria-label="瀏覽器">
+              <span class="di di-web"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#fff" stroke-width="1.8"/><ellipse cx="12" cy="12" rx="3.4" ry="8" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M4.4 12h15.2" stroke="#fff" stroke-width="1.8"/></svg></span>
+            </button>
+            <button type="button" class="dock-ico" data-deco="相機" aria-label="相機">
+              <span class="di di-cam"><svg viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="12" rx="2.6" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M9 7l1-2h4l1 2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            </button>
+          </nav>
+        </section>
+
+        <!-- QUICK SETTINGS -->
+        <section class="qs" id="screen-qs" hidden aria-label="下拉選單">
+          <button type="button" class="qs-dim" data-close-qs aria-label="關閉下拉選單"></button>
+          <div class="qs-sheet">
+            <div class="qs-handle" aria-hidden="true"></div>
+            <div class="qs-head">
+              <div>
+                <div class="qs-date" data-clock="date">11月22日 星期日</div>
+                <div class="qs-sub">下拉快捷開關 · 示範</div>
+              </div>
+            </div>
+            <div class="bright" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 3.2v1.8M12 19v1.8M3.2 12h1.8M19 12h1.8M5.6 5.6l1.3 1.3M17.1 17.1l1.3 1.3M5.6 18.4l1.3-1.3M17.1 6.9l1.3-1.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <div class="bright-track"><i style="width:62%"></i></div>
+            </div>
+            <div class="qs-grid" role="group" aria-label="快捷開關">
+              <button type="button" class="qs-tile wide on" data-qs-toggle="wifi">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M3 8.2C6.8 4.8 11.6 3.6 16.6 5.4M5.6 11C8.4 8.6 11.8 7.8 15.4 9M8.6 13.8c1.7-1.5 3.8-2 5.9-1.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12.2" cy="16.6" r="1.3" fill="currentColor"/></svg></span>
+                <span class="qt-name">網際網路</span>
+              </button>
+              <button type="button" class="qs-tile wide on" data-qs-toggle="bt">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M7 7.5l10 9-5.2 3.7V3.8L17 7.5l-10 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="qt-name">藍牙</span>
+              </button>
+              <button type="button" class="qs-tile" data-qs-toggle="torch">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M9 3.8h6L16.5 9H7.5L9 3.8zM9 9h6v10.4a1.4 1.4 0 0 1-1.4 1.4h-3.2A1.4 1.4 0 0 1 9 19.4V9z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 12.2v3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+                <span class="qt-name">手電筒</span>
+              </button>
+              <button type="button" class="qs-tile" data-qs-toggle="dnd">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M15.2 5.2A7.2 7.2 0 1 0 18.8 16 5.8 5.8 0 0 1 15.2 5.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+                <span class="qt-name">勿擾</span>
+              </button>
+              <button type="button" class="qs-tile on" id="qs-nfc" data-qs-nfc>
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M5 8.5c2.6-2.4 5.5-3.5 9.6-2.6M5 12.4c2.1-1.9 4.5-2.7 7.8-2.1M5 16.2c1.6-1.4 3.4-2 5.8-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                <span class="qt-name">NFC</span>
+              </button>
+              <button type="button" class="qs-tile on" data-qs-toggle="rotate">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M7.5 8.2A6.5 6.5 0 0 1 19 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16.5 15.8A6.5 6.5 0 0 1 5 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16.4 5.4v4.2H20.6M7.6 18.6v-4.2H3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="qt-name">自動旋轉</span>
+              </button>
+              <button type="button" class="qs-tile feature wide" data-open-pay="current" aria-label="NFC 付款切換，打開預設感應付款設定">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M5 8.2c2.4-2.2 5.1-3.2 8.8-2.4M5 12c1.9-1.7 4.1-2.5 7-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14.2 13.4l4.2 4.2M18.4 13.4l-4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                <span class="qt-text">
+                  <span class="qt-name">NFC 付款切換</span>
+                  <span class="qt-sub" data-last-label>尚未選擇</span>
+                </span>
+              </button>
+              <button type="button" class="qs-tile wide" data-qs-toggle="air">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M4 13.2h7.2L20.6 6.4M4 10.8h7.2L20.6 17.6M12.2 13.2l2.4 7.2.9-3.4 3.2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="qt-name">飛航模式</span>
+              </button>
+              <button type="button" class="qs-tile wide" data-qs-toggle="loc">
+                <span class="qt-ico"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.2A7 7 0 0 0 5 9.8C5 14.9 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+                <span class="qt-name">定位</span>
+              </button>
+            </div>
+            <p class="qs-hint">點「NFC 付款切換」會打開系統設定頁（示意）。其他開關只是示範外觀。</p>
+          </div>
+        </section>
+
+        <!-- PAYMENT SETTINGS -->
+        <section class="screen screen-push" id="screen-pay" aria-label="預設感應付款">
+          <div class="sys-head">
+            <button type="button" class="back" data-back aria-label="返回">
+              <svg viewBox="0 0 24 24"><path d="M15 5.5L8.5 12 15 18.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <h1>預設感應付款</h1>
+          </div>
+          <div class="sys-body">
+            <div class="demo-banner" role="note">DEMO示意，實際切換在系統設定頁完成</div>
+            <p class="sys-lead">選擇要用來感應付款的應用程式。這個示範頁看起來像系統設定，但不會真的改你手機裡的預設。</p>
+            <div class="card radios" role="radiogroup" aria-label="預設感應付款應用程式">
+              <button type="button" class="radio-row" role="radio" aria-checked="false" data-pick="wallet" id="pick-wallet">
+                <span class="r-app">
+                  <span class="r-badge r-oppo" aria-hidden="true">
+                    <svg viewBox="0 0 32 32"><path d="M10 14.5V11.2A6 6 0 0 1 22 11v1" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="6.5" y="14" width="19" height="13.5" rx="3.2" fill="none" stroke="#fff" stroke-width="2"/><path d="M16 18.2v4.2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                  </span>
+                  <span>
+                    <strong>錢包</strong>
+                    <em>OPPO 錢包 · 門禁卡</em>
+                  </span>
+                </span>
+                <span class="r-dot" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="radio-row" role="radio" aria-checked="false" data-pick="google" id="pick-google">
+                <span class="r-app">
+                  <span class="r-badge r-google" aria-hidden="true">
+                    <svg viewBox="0 0 32 32"><rect x="5.5" y="9" width="21" height="15.5" rx="3.2" fill="none" stroke="#fff" stroke-width="2"/><path d="M5.5 13.2h21" stroke="#fff" stroke-width="2"/><rect x="18.2" y="16.6" width="5.6" height="3.4" rx="1" fill="#fff"/></svg>
+                  </span>
+                  <span>
+                    <strong>Google 錢包</strong>
+                    <em>感應付款</em>
+                  </span>
+                </span>
+                <span class="r-dot" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="sys-foot">選好之後會回到上一頁，並更新「上次選擇」。實際的 App 無法可靠讀取系統目前的預設，所以正式版也會標成「上次選擇」或「示意」。</p>
+          </div>
+        </section>
+
+        <!-- NFC SETTINGS -->
+        <section class="screen screen-push" id="screen-nfc" aria-label="NFC 設定">
+          <div class="sys-head">
+            <button type="button" class="back" data-back aria-label="返回">
+              <svg viewBox="0 0 24 24"><path d="M15 5.5L8.5 12 15 18.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <h1>NFC</h1>
+          </div>
+          <div class="sys-body">
+            <div class="demo-banner" role="note">DEMO示意，實際切換在系統設定頁完成</div>
+            <div class="card">
+              <div class="row-toggle">
+                <div>
+                  <strong>NFC</strong>
+                  <em class="row-sub" id="nfc-state-label">已開啟</em>
+                </div>
+                <button type="button" class="switch on" id="nfc-switch" role="switch" aria-checked="true" aria-label="NFC"></button>
+              </div>
+            </div>
+            <div class="card">
+              <button type="button" class="link-row" data-open-pay="current">
+                <span>
+                  <strong>感應付款</strong>
+                  <em class="row-sub">選擇預設應用程式</em>
+                </span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5L15.5 12 9 18.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="row-toggle">
+                <div>
+                  <strong>需要解鎖才能付款</strong>
+                  <em class="row-sub">螢幕鎖著時不會跳出付款</em>
+                </div>
+                <button type="button" class="switch" id="lock-switch" role="switch" aria-checked="false" aria-label="需要解鎖才能付款"></button>
+              </div>
+            </div>
+            <p class="sys-foot">以上開關只是示範外觀。正式 App 會帶你到手機的系統 NFC 設定頁，由你自己打開或關閉。</p>
+          </div>
+        </section>
+
+        <!-- APP MAIN -->
+        <section class="screen screen-push" id="screen-app" aria-label="NFC 付款切換">
+          <div class="sys-head app-head">
+            <button type="button" class="back" data-back aria-label="返回桌面">
+              <svg viewBox="0 0 24 24"><path d="M15 5.5L8.5 12 15 18.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <h1>NFC 付款切換</h1>
+          </div>
+          <div class="sys-body app-body">
+            <div class="demo-banner" role="note">DEMO示意，實際切換在系統設定頁完成</div>
+
+            <div class="card nfc-status" id="nfc-card">
+              <div class="nfc-led" aria-hidden="true"></div>
+              <div class="nfc-info">
+                <strong>NFC</strong>
+                <em id="app-nfc-label">已開啟</em>
+              </div>
+              <button type="button" class="btn-outline" data-open-nfc>開啟 NFC 設定</button>
+            </div>
+
+            <div class="card last-card">
+              <span class="lc-label">上次選擇<span class="hint-tag">示意</span></span>
+              <strong class="lc-value" data-last-label>尚未選擇</strong>
+              <div class="widget-btns in-app">
+                <button type="button" class="w-btn door" data-open-pay="wallet">
+                  <span class="w-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M10 14.5V11.2A6 6 0 0 1 22 11v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="6.5" y="14" width="19" height="13.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 18.2v4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="18.2" r="1.1" fill="currentColor"/></svg></span>
+                  <span class="w-name">刷門禁</span>
+                  <span class="w-sub">OPPO 錢包</span>
+                </button>
+                <button type="button" class="w-btn pay" data-open-pay="google">
+                  <span class="w-ico" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5.5" y="9" width="21" height="15.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 13.2h21" stroke="currentColor" stroke-width="1.8"/><rect x="18.2" y="16.6" width="5.6" height="3.4" rx="1" fill="currentColor"/></svg></span>
+                  <span class="w-name">付款</span>
+                  <span class="w-sub">Google 錢包</span>
+                </button>
+              </div>
+            </div>
+
+            <section class="card help">
+              <h2>使用教學</h2>
+              <ol>
+                <li>到「感應付款」設定裡，開啟「需要解鎖才能付款」。螢幕鎖著時就不會跳出付款。</li>
+                <li>刷門禁時，把手機背面上方貼住讀卡機，停 1 到 2 秒再拿開。</li>
+                <li>這個 App 不能直接改系統預設，只會打開設定頁，由你點一下切換。</li>
+              </ol>
+            </section>
+
+            <section class="card remind">
+              <div class="row-toggle">
+                <div>
+                  <strong>提醒</strong>
+                  <em class="row-sub">切到 Google 錢包後，提醒我切回門禁</em>
+                </div>
+                <button type="button" class="switch" id="remind-switch" role="switch" aria-checked="false" aria-label="切到 Google 錢包後提醒切回門禁"></button>
+              </div>
+              <div class="mins" id="mins-wrap" hidden>
+                <p class="mins-label">提醒時間</p>
+                <div class="mins-row" role="radiogroup" aria-label="提醒時間">
+                  <button type="button" class="chip" data-mins="5">5 分鐘</button>
+                  <button type="button" class="chip on" data-mins="15">15 分鐘</button>
+                  <button type="button" class="chip" data-mins="30">30 分鐘</button>
+                </div>
+                <button type="button" class="btn-ghost" id="btn-preview-notif">預覽提醒通知</button>
+                <p class="mins-note">正式 App 會在時間到時發通知。這個示範可用「預覽」立刻看通知長什麼樣子，或在選了 Google 錢包後約 2 秒出現（示意）。</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Notification -->
+        <div class="notif" id="notif" hidden>
+          <button type="button" class="notif-card" id="notif-btn">
+            <span class="nf-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M7 12.2c3.2-3 6.8-4.3 12.2-3.2M7 16.6c2.6-2.3 5.5-3.3 9.6-2.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M20.2 18.2l4.3 4.3M24.5 18.2L20.2 22.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <span class="nf-body">
+              <span class="nf-top">
+                <span class="nf-app">NFC 付款切換</span>
+                <span class="nf-when">剛剛</span>
+              </span>
+              <strong class="nf-title">記得切回門禁</strong>
+              <span class="nf-text">你先前改成 Google 錢包付款。點一下可回到設定頁，改回錢包（門禁）。</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="toast" id="toast" hidden></div>
+        <div class="home-ind" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
